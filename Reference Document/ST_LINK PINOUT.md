@@ -1,0 +1,6 @@
+* RED - 3.3v
+* BLACK - GND
+* BLUE - TX
+* PURPLE - RX
+* GREEN - SWCLK
+* YELLOW - SWDIO
