@@ -8,8 +8,8 @@
 
 #define USART_TxBuffer_Size 100
 #define USART_RxBuffer_Size 100
-#define USART_Default_TxTimeOut 1000  // 1 second
-#define USART_Default_RxTimeOut 1000  // 1 second
+#define USART_Default_TxTimeOut 0xFFFF
+#define USART_Default_RxTimeOut 0xFFFFFFFF
 
 
 typedef struct{
@@ -87,7 +87,7 @@ void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart);
 
 /*Overloading standard printf's fputc function, this method does not support Atollic Truestudio IDE
  * due to coinciding with its built-in debug tool*/
-int fputc(int c, FILE *f);
+//int fputc(int c, FILE *f);
 
 
 
