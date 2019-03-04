@@ -8,8 +8,8 @@
 
 #define USART_TxBuffer_Size 100
 #define USART_RxBuffer_Size 100
-#define USART_Default_TxTimeOut 0xFFFF
-#define USART_Default_RxTimeOut 0xFFFFFFFF
+#define USART_Default_TxTimeOut 0xFFFF  // 1 second
+#define USART_Default_RxTimeOut 0xFFFFFFFF  // 1 second
 
 
 typedef struct{
@@ -32,7 +32,8 @@ USART *newMainUSART(UART_HandleTypeDef *huart);
 
 /*==============================Polling Mode===============================*/
 /*All are blocking mode*/
-void usartSend(USART* instance);
+
+void usartWrite(USART* instance);
 char* usartRead(USART* instance, uint16_t size);
 
 void print(USART* instance, const char*format, ...);
@@ -49,7 +50,7 @@ int scanf_u(Format_Param);
 
 /*==============================Interrupt Mode===============================*/
 /*All non-blocking mode*/
-void usartSend_IT(USART* instance);
+void usartWrite_IT(USART* instance);
 char* usartRead_IT(USART* instance, uint16_t size);
 void print_IT(USART* instance, Format_Param);
 void printf_IT(Format_Param);
@@ -58,7 +59,7 @@ void printf_IT(Format_Param);
 
 /*==============================DMA Mode===============================*/
 /*Non-blocking mode*/
-void usartSend_DMA(USART* instance);
+void usartWrite_DMA(USART* instance);
 char* usartRead_DMA(USART* instance, uint16_t size);
 
 void print_DMA(USART* instance, const char*format, ...);
@@ -72,9 +73,9 @@ void fastPrintf(Format_Param);
 
 /*==============================Interrupt Handler===============================*/
 /*Overload this callback function to add user-defined handling program upon Transmission Completion */
-__weak void IT_CallBack_UsartTC(USART* instance);
+__weak void usartTC_IT_CallBack(USART* instance);
 /*Overload this callback function to add user-defined handling program upon Reception Completion */
-__weak void IT_CallBack_UsartRC(USART* instance);
+__weak void usartRC_IT_CallBack(USART* instance);
 /*=========================================================================*/
 
 
@@ -87,7 +88,7 @@ void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart);
 
 /*Overloading standard printf's fputc function, this method does not support Atollic Truestudio IDE
  * due to coinciding with its built-in debug tool*/
-//int fputc(int c, FILE *f);
+int fputc(int c, FILE *f);
 
 
 

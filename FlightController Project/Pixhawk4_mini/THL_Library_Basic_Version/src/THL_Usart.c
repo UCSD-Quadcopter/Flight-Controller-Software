@@ -49,7 +49,7 @@ USART *newMainUSART(UART_HandleTypeDef *huart) {
 
 
 /*==============================Transmission===============================*/
-void usartSend(USART* instance) {
+void usartWrite(USART* instance) {
 	HAL_StatusTypeDef Status;
 	Status = HAL_UART_Transmit(instance->huart, (uint8_t*)instance->TxBuffer, strlen(instance->TxBuffer), instance->TxTimeOut);
 	if(Status == HAL_BUSY) instance->TxStatus = InProcess;
@@ -59,38 +59,38 @@ void usartSend(USART* instance) {
 		__HAL_UNLOCK(instance->huart);
 		instance->huart->gState = HAL_UART_STATE_READY;
 		
-		throwException("THL_Usart.c: usartSend() | TimeOut");
+		throwException("THL_Usart.c: usartWrite() | TimeOut");
 	}
 	else if(Status == HAL_ERROR) {
 		instance->TxStatus = Error;
-		throwException("THL_Usart.c: usartSend() | Error");
+		throwException("THL_Usart.c: usartWrite() | Error");
 	}
 	else if(Status == HAL_OK) instance->TxStatus = Completed;
 }
 
 
 //Test Me!!!
-void usartSend_IT(USART* instance) {
+void usartWrite_IT(USART* instance) {
 	//check if the previous transmission is completed
 	if(instance->TxStatus == InProcess) return;
 	HAL_StatusTypeDef Status;
 	Status = HAL_UART_Transmit_IT(instance->huart, (uint8_t*)instance->TxBuffer, strlen(instance->TxBuffer));
 	if(Status == HAL_ERROR) {
 		instance->TxStatus = Error;
-		throwException("THL_Usart.c: usartSend_IT() | Error");
+		throwException("THL_Usart.c: usartWrite_IT() | Error");
 		return;
 	}
 	instance->TxStatus = InProcess;
 }
 
-void usartSend_DMA(USART* instance) {
+void usartWrite_DMA(USART* instance) {
 	//check if the previous transmission is completed
 	if(instance->TxStatus == InProcess) return;
 	HAL_StatusTypeDef Status;
 	Status = HAL_UART_Transmit_DMA(instance->huart, (uint8_t*)instance->TxBuffer, strlen(instance->TxBuffer));
 	if(Status == HAL_ERROR) {
 		instance->TxStatus = Error;
-		throwException("THL_Usart.c: usartSend_DMA() | Error");
+		throwException("THL_Usart.c: usartWrite_DMA() | Error");
 		return;
 	}
 	instance->TxStatus = InProcess;
@@ -100,7 +100,7 @@ void usartSend_DMA(USART* instance) {
 void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart) {
 	for(int i = 0; i < numActiveUSARTs; i++) {
 		if(ActiveUSARTs[i]->huart == huart) {
-			IT_CallBack_UsartTC(ActiveUSARTs[i]);
+			usartTC_IT_CallBack(ActiveUSARTs[i]);
 			ActiveUSARTs[i]->TxStatus = Completed;
 		}
 	}
@@ -110,17 +110,17 @@ void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart) {
   *interrupt is triggered by usart completing 
   *tranfering data
   */
-__weak void IT_CallBack_UsartTC(USART* instance){
+__weak void usartTC_IT_CallBack(USART* instance){
 	 UNUSED(instance);
 }
 
 void print(USART* instance, Format_Param) {
 	formatStrings(instance->TxBuffer);
-	usartSend(instance);
+	usartWrite(instance);
 }
 void printf_u(Format_Param) {
 	formatStrings(DefaultUSART.TxBuffer);
-	usartSend(&DefaultUSART);
+	usartWrite(&DefaultUSART);
 }
 
 
@@ -131,7 +131,7 @@ void print_IT(USART* instance, Format_Param) {
 	//check if the previous transmission is completed
 	if(instance->TxStatus == InProcess) return;
 	formatStrings(instance->TxBuffer);
-	usartSend_IT(instance);
+	usartWrite_IT(instance);
 }
 /** Non-Blocking mode print with dma
   */
@@ -139,7 +139,7 @@ void print_DMA(USART* instance, Format_Param) {
 	//check if the previous transmission is completed
 	if(instance->TxStatus == InProcess) return;
 	formatStrings(instance->TxBuffer);
-	usartSend_DMA(instance);
+	usartWrite_DMA(instance);
 }
 
 //Test Me !!!
@@ -147,7 +147,7 @@ void printf_IT(Format_Param) {
 	//check if the previous transmission is completed
 	if(DefaultUSART.TxStatus == InProcess) return;
 	formatStrings(DefaultUSART.TxBuffer);
-	usartSend_IT(&DefaultUSART);
+	usartWrite_IT(&DefaultUSART);
 }
 
 
@@ -155,7 +155,7 @@ void printf_DMA(Format_Param) {
 	//check if the previous transmission is completed
 	if(DefaultUSART.TxStatus == InProcess) return;
 	formatStrings(DefaultUSART.TxBuffer);
-	usartSend_DMA(&DefaultUSART);
+	usartWrite_DMA(&DefaultUSART);
 }
 /** Blocking Mode print_dma 
   * printing with dma is 
@@ -238,13 +238,13 @@ char* usartRead_DMA(USART* instance, uint16_t size) {
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 	for(int i = 0; i < numActiveUSARTs; i++) {
 		if(ActiveUSARTs[i]->huart == huart) {
-			IT_CallBack_UsartRC(ActiveUSARTs[i]);
+			usartRC_IT_CallBack(ActiveUSARTs[i]);
 			ActiveUSARTs[i]->RxStatus = Completed;
 		}
 	}
 }
 
-__weak void IT_CallBack_UsartRC(USART* instance){
+__weak void usartRC_IT_CallBack(USART* instance){
 	 UNUSED(instance);
 }
 

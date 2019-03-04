@@ -1,7 +1,6 @@
 #ifndef __THL_GPIO_H
 #define __THL_GPIO_H
 #include "THL_Portability.h"
-#include "main.h"
 
 typedef struct{
 	GPIO_TypeDef* GPIOx;
