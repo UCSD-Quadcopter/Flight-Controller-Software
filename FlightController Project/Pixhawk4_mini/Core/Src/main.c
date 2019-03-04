@@ -43,8 +43,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "THL_main.h"
 
+#include "Prj_Main.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -117,7 +117,7 @@ int main(void)
   MX_DMA_Init();
   MX_UART7_Init();
   /* USER CODE BEGIN 2 */
-  THL_main();
+  prj_main();
   /* USER CODE END 2 */
 
   /* Infinite loop */

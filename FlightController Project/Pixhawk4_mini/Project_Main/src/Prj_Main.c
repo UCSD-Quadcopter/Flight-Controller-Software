@@ -1,9 +1,24 @@
 #include "Prj_Main.h"
 #include "THL_Library_Basic.h"
-#include "ICM20689_I2C_Tester.h"
-#include "THL_SpiTester.h"
-#include "PMW3901_Tester.h"
-void prj_main(void) {
-	testPMW3901();
-}
 
+extern UART_HandleTypeDef huart7;
+GPIO  blue_led_mem; //instance memory allocated as static
+GPIO* blue_led;
+
+void THL_main(void) {
+	newGPIO(blue_led, BLUE_LED_GPIO_Port, BLUE_LED_Pin);
+	newMainUSART(&huart7);
+
+	gpioWrite(blue_led, Low);
+	printf_u("\rPixhawk4 mini Flight Controller from Team TritonWings at UCSD\r\n");
+
+	delay(1000);
+	gpioWrite(blue_led, High);
+
+	for(int i = 0; i < 5; i++) {
+		toggle(blue_led);
+		delay(1000);
+		toggle(blue_led);
+		delay(1000);
+	}
+}

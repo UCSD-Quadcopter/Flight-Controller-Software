@@ -9,6 +9,7 @@
 #define TIM_Channel_3 TIM_CHANNEL_3
 #define TIM_Channel_4 TIM_CHANNEL_4
 
+#ifdef HAL_TIM_MODULE_ENABLED
 
 
 typedef struct{
@@ -34,5 +35,5 @@ void timSetPwmDutyCircle(TIM* instance, uint32_t channel, uint32_t dutyCircleCnt
 void timPwmWrite(TIM* instance, uint32_t channel, double dutyCirclePercent);
 /*===========================================================================*/
 
-
+#endif
 #endif
