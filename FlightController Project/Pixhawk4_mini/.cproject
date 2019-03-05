@@ -43,9 +43,10 @@
 									<listOptionValue builtIn="false" value="../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy"/>
 									<listOptionValue builtIn="false" value="../Drivers/CMSIS/Device/ST/STM32F7xx/Include"/>
 									<listOptionValue builtIn="false" value="../Drivers/CMSIS/Include"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Pixhawk4_mini/FlightControllerDrivers/inc}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Pixhawk4_mini/FlightControllerMain/inc}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Pixhawk4_mini/THL_Library_Basic_Version (STM32 Drivers)/inc}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Pixhawk4_mini/FlightControllerDrivers/Drivers/inc}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Pixhawk4_mini/FlightControllerDrivers/Interfaces/inc}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Pixhawk4_mini/THL_STM32_Drivers/inc}&quot;"/>
 								</option>
 								<option id="com.atollic.truestudio.gcc.symbols.defined.1670122205" name="Defined symbols" superClass="com.atollic.truestudio.gcc.symbols.defined" useByScannerDiscovery="false" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="__weak=__attribute__((weak))"/>
@@ -116,9 +117,10 @@
 					<sourceEntries>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Core"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Drivers"/>
-						<entry flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="FlightControllerDrivers"/>
+						<entry flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="FlightControllerDrivers/Drivers"/>
+						<entry flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="FlightControllerDrivers/Interfaces"/>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="FlightControllerMain"/>
-						<entry flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="THL_Library_Basic_Version (STM32 Drivers)"/>
+						<entry flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="THL_STM32_Drivers"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="startup"/>
 					</sourceEntries>
 				</configuration>

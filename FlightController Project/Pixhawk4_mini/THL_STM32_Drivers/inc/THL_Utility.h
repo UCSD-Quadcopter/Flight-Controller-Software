@@ -3,19 +3,14 @@
 #include "THL_Portability.h"
 
 /*=============================COMMON STATES===============================*/
-#define False 0
 #define True 1
+#define False 0
+
+#define Succeeded 1
+#define Failed 0
 
 #define High 1
 #define Low 0
-
-#define NotReady 0
-#define Ready 1
-
-#define InProcess 2
-#define Completed 3
-#define TimeOut 4
-#define Error 5
 
 #define Enabled 1
 #define Disabled 0
@@ -23,8 +18,17 @@
 #define On 1
 #define Off 0
 
-#define Succeeded 1
-#define Failed 0
+typedef enum
+{
+	NotReady = 0,
+	Ready = 1,
+	InProcess = 2,
+	Completed = 3,
+	TimeOut = 4,
+	Error = 5
+}CommStatus;
+
+
 
 /*=========================================================================*/
 
