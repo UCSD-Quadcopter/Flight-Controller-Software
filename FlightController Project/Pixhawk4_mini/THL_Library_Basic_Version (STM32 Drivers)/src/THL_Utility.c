@@ -1,6 +1,4 @@
 #include "THL_Utility.h"
-#include "stm32f7xx_hal_def.h"
-
 
 /*==========================Exception Handling==============================*/
 __weak void Exception_Handler(const char* str) {

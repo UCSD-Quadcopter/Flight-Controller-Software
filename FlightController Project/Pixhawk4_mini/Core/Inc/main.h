@@ -78,8 +78,18 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define BMI055_Acc_CS_Pin GPIO_PIN_10
+#define BMI055_Acc_CS_GPIO_Port GPIOG
 #define BLUE_LED_Pin GPIO_PIN_7
 #define BLUE_LED_GPIO_Port GPIOC
+#define ICM20689_CS_Pin GPIO_PIN_2
+#define ICM20689_CS_GPIO_Port GPIOF
+#define ICM20602_CS_Pin GPIO_PIN_3
+#define ICM20602_CS_GPIO_Port GPIOF
+#define BMI055_Gyro_CS_Pin GPIO_PIN_4
+#define BMI055_Gyro_CS_GPIO_Port GPIOF
+#define Aux_Mem_CS_Pin GPIO_PIN_5
+#define Aux_Mem_CS_GPIO_Port GPIOH
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

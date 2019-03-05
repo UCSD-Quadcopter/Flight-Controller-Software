@@ -10,7 +10,7 @@
 
 #ifdef HAL_SPI_MODULE_ENABLED
 
-#define DummyByte 0x00
+#define DummyByte 0xFF
 #define Max_Num_SPIs 10
 uint16_t numActiveSPIs = 0;
 SPI* ActiveSPIs[Max_Num_SPIs];
