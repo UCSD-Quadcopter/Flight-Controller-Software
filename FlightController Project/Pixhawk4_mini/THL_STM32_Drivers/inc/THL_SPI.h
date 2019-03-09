@@ -58,7 +58,7 @@ SPI *newSPI(SPI* instance, SPI_HandleTypeDef *hspi);
 void spiBeginDevice(GPIO* chip_select);
 void spiEndDevice(GPIO* chip_select);
 
-uint8_t spiReconfigHardParam(SPI* instance);
+Bool spiReconfigHardParam(SPI* instance);
 /*=========================================================================*/
 
 

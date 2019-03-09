@@ -1,25 +1,30 @@
 #ifndef __THL_Utility_H
 #define __THL_Utility_H
 #include "THL_Portability.h"
+#include <stdarg.h>
+#include <string.h>
 
 /*=============================COMMON STATES===============================*/
-#define True 1
-#define False 0
+typedef enum {
+	True = 1,
+	False = 0,
 
-#define Succeeded 1
-#define Failed 0
+	Succeeded = 1,
+	Failed = 0,
 
-#define High 1
-#define Low 0
+	High = 1,
+	Low = 0,
 
-#define Enabled 1
-#define Disabled 0
+	Enabled = 1,
+	Disabled = 0,
 
-#define On 1
-#define Off 0
+	On = 1,
+	Off = 0
+}Bool;
 
-typedef enum
-{
+
+
+typedef enum {
 	NotReady = 0,
 	Ready = 1,
 	InProcess = 2,
@@ -47,5 +52,8 @@ typedef enum
 
 __weak void Exception_Handler(const char* str);
 void throwException(const char* str);
+
+__weak void DebugStr_Handler(const char* str);
+void debugString(Format_Param);
 
 #endif

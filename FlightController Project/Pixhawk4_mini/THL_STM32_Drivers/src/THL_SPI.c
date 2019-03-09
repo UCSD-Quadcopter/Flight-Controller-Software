@@ -52,7 +52,7 @@ void spiEndDevice(GPIO* chip_select) {
  * This is useful when multiple devices that requires different settings shares the
  * same bus
  * change settings in "instance->hspi->Init.xxxx" then pass the instance in*/
-uint8_t spiReconfigHardParam(SPI* instance) {
+Bool spiReconfigHardParam(SPI* instance) {
 	if (HAL_SPI_Init(instance->hspi) != HAL_OK) return False;
 	return True;
 }

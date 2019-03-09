@@ -78,6 +78,9 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define ICM20689_DRDY_Pin GPIO_PIN_4
+#define ICM20689_DRDY_GPIO_Port GPIOB
+#define ICM20689_DRDY_EXTI_IRQn EXTI4_IRQn
 #define BMI055_Acc_CS_Pin GPIO_PIN_10
 #define BMI055_Acc_CS_GPIO_Port GPIOG
 #define BLUE_LED_Pin GPIO_PIN_7

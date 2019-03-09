@@ -2,7 +2,7 @@
  * ICM20689.h
  *
  *  Created on: Mar 3, 2019
- *      Author: zhang
+ *      Author: Hongtao Zhang, Zihao Zhou
  */
 
 #ifndef INC_ICM20689_H_
@@ -10,64 +10,41 @@
 
 #include "THL_Library_Basic.h"
 
-#define ICM_ADDR 0x68    // AD0 should be low
+#define ICM20689_GYRO_250dps   0x00 // Gyro Full Scale -> ±250dps.  0x00 = [0000,0000]b
+#define ICM20689_GYRO_500dps   0x08 // Gyro Full Scale -> ±500dps.  0x08 = [0000,1000]b
+#define ICM20689_GYRO_1000dps  0x10 // Gyro Full Scale -> ±1000dps. 0x10 = [0001,0000]b
+#define ICM20689_GYRO_2000dps  0x18 // Gyro Full Scale -> ±2000dps. 0x18 = [0001,1000]b
 
-#define SELF_TEST_X_GYRO_REG    0x00
-#define SELF_TEST_Y_GYRO_RE     0x01
-#define SELF_TEST_Z_GYRO_REG    0x02
-
-#define SELF_TEST_X_ACCEL_REG   0x0D
-#define SELF_TEST_Y_ACCEL_REG   0x0E
-#define SELF_TEST_Z_ACCEL_REG   0x0F
-
-#define SMPLRT_REG        0x19
-#define CFG_REG           0x1A
-#define GYRO_CFG_REG      0x1B
-#define ACCEL_CFG1_REG    0x1C
-#define ACCEL_CFG2_REG    0x1D
-
-#define FIFO_EN_REG       0x23
-#define FSYNC_INT_REG     0x36
-
-#define INT_PIN_CFG_REG   0x37
-#define INT_EN_REG        0x38
-#define INT_STA_REG       0x3A
-
-#define ACCEL_XOUTH_REG   0x3B
-#define ACCEL_XOUTL_REG   0x3C
-#define ACCEL_YOUTH_REG   0x3D
-#define ACCEL_YOUTL_REG   0x3E
-#define ACCEL_ZOUTH_REG   0x3F
-#define ACCEL_ZOUTL_REG   0x40
-
-#define TEMP_OUTH_REG     0x41
-#define TEMP_OUTL_REG     0x42
-
-#define GYRO_XOUTH_REG    0x43
-#define GYRO_XOUTL_REG    0x44
-#define GYRO_YOUTH_REG    0x45
-#define GYRO_YOUTL_REG    0x46
-#define GYRO_ZOUTH_REG    0x47
-#define GYRO_ZOUTL_REG    0x48
-
-#define SIGPATH_RST_REG   0x68
-#define USER_CTRL_REG     0x6A
-#define PWR_MGMT1_REG     0x6B
-#define PWR_MGMT2_REG     0x6C
-#define FIFO_CNTH_REG     0x72
-#define FIFO_CNTL_REG     0x73
-#define FIFO_RW_REG       0x74
-#define WHO_AM_I_REG      0x75
-
-#define ICM20689_WriteReg(regAddr, byte) __ICM20689_WriteReg(instance, regAddr, byte)
-#define ICM20689_ReadReg(regAddr) __ICM20689_ReadReg(instance, regAddr)
+#define ICM20689_ACC_2g   0x00 // Accel Full Scale -> ±2g.   0x00 = [0000,0000]b
+#define ICM20689_ACC_4g   0x08 // Accel Full Scale -> ±4g.   0x00 = [0000,1000]b
+#define ICM20689_ACC_8g   0x10 // Accel Full Scale -> ±8g.   0x00 = [0001,0000]b
+#define ICM20689_ACC_16g  0x18 // Accel Full Scale -> ±16g.  0x00 = [0001,1000]b
 
 
 typedef struct{
+	//Communication bus
 	SPI* spiBus;
 	GPIO* CS;
-	volatile uint8_t Status;
+	GPIO* INT;
+
+	//Internal setting
+	volatile uint8_t acc_fsRange;
+	volatile uint8_t gyro_fsRange;
+
+	//Data
+	volatile double acc_X;
+	volatile double acc_Y;
+	volatile double acc_Z;
+	volatile double gyro_X;
+	volatile double gyro_Y;
+	volatile double gyro_Z;
+
+	//Timing and Sampling status
+	volatile uint32_t timeStamp;
+	volatile uint8_t isDataReady;
 }ICM20689;
+
+
 
 
 void __ICM20689_WriteReg(ICM20689* instance, uint8_t regAddr, uint8_t byte);
@@ -76,9 +53,12 @@ uint8_t __ICM20689_ReadReg(ICM20689* instance, uint8_t regAddr);
 
 ICM20689* newICM20689(ICM20689* instance, SPI* spiBus, GPIO* chip_select);
 
-uint8_t initICM20689(ICM20689* instance);
+Bool initICM20689(ICM20689* instance, uint8_t gyro_fsRange, uint8_t acc_fsRange);
 
-uint8_t ICM20689_getWhoAmI(ICM20689* instance);
+ICM20689* ICM20689_getAccel(ICM20689* instance);
+ICM20689* ICM20689_getGyro(ICM20689* instance);
+
+Bool ICM20689_clearINT_STATUS(ICM20689* instance);
 
 
 #endif /* INC_ICM20689_H_ */
