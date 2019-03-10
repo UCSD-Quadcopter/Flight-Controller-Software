@@ -177,11 +177,14 @@ Bool initICM20689(ICM20689* instance, uint8_t gyro_fsRange, uint8_t acc_fsRange)
 	ICM_WriteReg_wMsk(FIFO_EN_REG, 0x00, 0x07);  // Disable FIFO
 	ICM_WriteReg(CFG_REG, 0x00); //Disable FSYNC
 
+/*
 	//Enable data ready interrupt
-	/*ICM_WriteReg_wMsk(INT_PIN_CFG_REG, 0x10, 0x02); // 0x30 = [0011,0000]b, Latch: pin level held until interrupt status is cleared
+	ICM_WriteReg_wMsk(INT_PIN_CFG_REG, 0x10, 0x02); // 0x30 = [0011,0000]b, Latch: pin level held until interrupt status is cleared
 	delay(100);
 	ICM_WriteReg_wMsk(INT_EN_REG, 0x01, 0x08);
-	delay(100);*/
+	delay(100);
+*/
+
 
 	//Achieve full gyro performance
 	ICM_WriteReg(PWR_MGMT1_REG, 0x01);	  // Set up x-axis PLL if ready
