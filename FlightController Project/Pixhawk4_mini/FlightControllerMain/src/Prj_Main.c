@@ -21,10 +21,15 @@ extern UART_HandleTypeDef huart7;
 GPIO  blue_led_mem; //instance memory allocated as static
 GPIO* blue_led;
 
+GPIO M8_mem;
+GPIO* M8;
+
 
 void prj_main(void) {
 	blue_led = newGPIO(&blue_led_mem, BLUE_LED_GPIO_Port, BLUE_LED_Pin);
 	newMainUSART(&huart7);
+
+
 
 	//Shut the other devices on the same SPI bus
 	HAL_GPIO_WritePin(ICM20602_CS_GPIO_Port, ICM20602_CS_Pin, GPIO_PIN_SET);
@@ -37,13 +42,13 @@ void prj_main(void) {
 	printf_u("\rPixhawk4 mini Flight Controller from Team TritonWings at UCSD\r\n");
 
 	/*gpioWrite(blue_led, High);
-	for(int i = 0; i < 5; i++) {
+	for(int i = 0; i < 3; i++) {
 		toggle(blue_led);
 		delay(100);
 		toggle(blue_led);
 		delay(100);
 	}*/
-	gpioWrite(blue_led, High);
+	gpioWrite(blue_led, Low);
 
 
 	initSensors();
@@ -52,6 +57,18 @@ void prj_main(void) {
 	flushDebugStr(debugStr);
 
 
+	uint32_t t0, T, i;
+	//ICM20689* IMU = getIMU1();
+	while(1) {
+		t0 = micros();
+		for(i = 0; i < 10; i++) {
+			getIMU1();
+		}
+		T = micros()-t0;
+		printf_u("\rTotal T = %d, 1 sample T = %d\r\n", T, T/10);
+	}
+
+	/*
 #define SAMPLE_SIZE 30
 
 	ICM20689* IMU = getIMU1();
@@ -66,12 +83,12 @@ void prj_main(void) {
 	while(1) {
 		if(dataIdx > SAMPLE_SIZE) {
 			for(dataIdx = 1; dataIdx < SAMPLE_SIZE; dataIdx++) {
-				/*
+
 				printf_u("\rAcc| x[%10.6lf] y[%10.6lf] z[%10.6lf] | ***",
 						acc_X[dataIdx], acc_Y[dataIdx], acc_Z[dataIdx]);
 				printf_u("*** Gyro| x[%15.6lf] y[%15.6lf] z[%15.6lf] |",
 						gyro_X[dataIdx], gyro_Y[dataIdx], gyro_Z[dataIdx]);
-				printf_u(" Time Stamp[%12d us]\r\n", timeStamps[dataIdx] - t0);*/
+				printf_u(" Time Stamp[%12d us]\r\n", timeStamps[dataIdx] - t0);
 			}
 			dataIdx = 0;
 			printf_u("\r\n");
@@ -94,6 +111,8 @@ void prj_main(void) {
 		}
 
 	}
+	*/
+
 }
 
 

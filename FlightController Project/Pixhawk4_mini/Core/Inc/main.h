@@ -87,12 +87,18 @@ void Error_Handler(void);
 #define BLUE_LED_GPIO_Port GPIOC
 #define ICM20689_CS_Pin GPIO_PIN_2
 #define ICM20689_CS_GPIO_Port GPIOF
+#define GREEN_LED_Pin GPIO_PIN_6
+#define GREEN_LED_GPIO_Port GPIOC
 #define ICM20602_CS_Pin GPIO_PIN_3
 #define ICM20602_CS_GPIO_Port GPIOF
 #define BMI055_Gyro_CS_Pin GPIO_PIN_4
 #define BMI055_Gyro_CS_GPIO_Port GPIOF
 #define Aux_Mem_CS_Pin GPIO_PIN_5
 #define Aux_Mem_CS_GPIO_Port GPIOH
+#define M8_Pin GPIO_PIN_9
+#define M8_GPIO_Port GPIOH
+#define RED_LED_Pin GPIO_PIN_1
+#define RED_LED_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

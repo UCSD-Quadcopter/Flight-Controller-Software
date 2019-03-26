@@ -105,9 +105,9 @@ void __ICM20689_WriteReg(ICM20689* instance, uint8_t regAddr, uint8_t byte) {
 
 uint8_t __ICM20689_ReadReg(ICM20689* instance, uint8_t regAddr) {
     spiBeginDevice(instance->CS);
-	spiReadWriteByte(instance->spiBus, SPI_WriteMode(regAddr)); //Same as Write, reversed
-	uint8_t rtn = *spiReadWriteByte(instance->spiBus, SPI_Dummy_Byte);
-	spiEndDevice(instance->CS);
+    spiReadWriteByte(instance->spiBus, SPI_WriteMode(regAddr)); //Same as Write, reversed
+    uint8_t rtn = *spiReadWriteByte(instance->spiBus, SPI_Dummy_Byte);
+    spiEndDevice(instance->CS);
 	return rtn;
 }
 void __ICM20689_WriteRegBit(ICM20689* instance, uint8_t regAddr, uint8_t bit, uint8_t leftShift) {
@@ -248,6 +248,7 @@ ICM20689* ICM20689_getGyro(ICM20689* instance) {
 	buf[3] = ICM_ReadReg(GYRO_YOUTL_REG);
 	buf[4] = ICM_ReadReg(GYRO_ZOUTH_REG);
 	buf[5] = ICM_ReadReg(GYRO_ZOUTL_REG);
+
 
 	int16_t gyro_X_raw = (int16_t)(buf[0] << 8) | buf[1];
 	int16_t gyro_Y_raw = (int16_t)(buf[2] << 8) | buf[3];

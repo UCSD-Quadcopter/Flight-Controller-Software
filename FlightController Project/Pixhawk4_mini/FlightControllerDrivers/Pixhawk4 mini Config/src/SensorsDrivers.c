@@ -26,7 +26,7 @@ volatile uint8_t isIMU1_DataReady(void) {
 	return IMU1->isDataReady;
 }
 ICM20689* getIMU1(void) {
-	ICM20689_getAccel(IMU1);
+	//ICM20689_getAccel(IMU1);
 	ICM20689_getGyro(IMU1);
 	IMU1->isDataReady = NotReady;
 	return IMU1;
