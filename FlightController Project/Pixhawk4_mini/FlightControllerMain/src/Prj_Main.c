@@ -76,14 +76,24 @@ void prj_main(void) {
 	uint32_t t1;
 	uint32_t t0 = micros();
 
+	uint32_t last_time = micros();
 	while(1) {
-		IMU = getIMU1();
 		t0 = micros();
+		if(t0 < last_time + 10000) {
+			continue;
+		}
+		last_time = t0;
+		IMU = getIMU1();
 
 		while(console->TxStatus != Completed);
-		printf_DMA("\r%lf %lf %lf %lf %lf %lf %d\n", IMU->acc_X,IMU->acc_Y,IMU->acc_Z,IMU->gyro_X,IMU->gyro_Y,IMU->gyro_Z, t0);
-		t1 = micros() - t0;
+		//printf_DMA("\rHello World!\n");
+		int factor = 10*10*10*10*10*10;
+		//printf_DMA("\r%lf %lf %lf %lf %lf %lf %d\n", IMU->acc_X,IMU->acc_Y,IMU->acc_Z,IMU->gyro_X,IMU->gyro_Y,IMU->gyro_Z, t0);
 
+		printf_DMA("\r%d %d %d %d %d %d %d\n", (int)(IMU->acc_X*factor),(int)(IMU->acc_Y*factor)
+				,(int)(IMU->acc_Z*factor),(int)(IMU->gyro_X*factor),(int)(IMU->gyro_Y*factor),(int)(IMU->gyro_Z*factor), t0);
+
+		t1 = micros() - t0;
 
 		//while(console->TxStatus != Completed);
 		//printf_DMA("\rTime took = %d us\n", t1);
