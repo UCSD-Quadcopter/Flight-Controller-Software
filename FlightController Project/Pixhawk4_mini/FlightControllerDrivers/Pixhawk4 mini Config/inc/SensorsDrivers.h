@@ -18,8 +18,8 @@
  */
 
 
-volatile uint8_t isIMU1_DataReady(void);
-void IMU1_ISR(void);
+//volatile uint8_t isIMU1_DataReady(void);
+//void IMU1_ISR(void);
 ICM20689* getIMU1(void);
 
 void initSensors(void);

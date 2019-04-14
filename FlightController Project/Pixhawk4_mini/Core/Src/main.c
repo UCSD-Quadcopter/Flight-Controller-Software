@@ -191,9 +191,6 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
-  /**Enables the Clock Security System 
-  */
-  HAL_RCC_EnableCSS();
 }
 
 /**
@@ -312,16 +309,16 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(BMI055_Acc_CS_GPIO_Port, BMI055_Acc_CS_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(BLUE_LED_GPIO_Port, BLUE_LED_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(GPIOC, BLUE_LED_Pin|GREEN_LED_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(ICM20689_CS_GPIO_Port, ICM20689_CS_Pin, GPIO_PIN_RESET);
-
-  /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOF, ICM20602_CS_Pin|BMI055_Gyro_CS_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(GPIOF, ICM20689_CS_Pin|ICM20602_CS_Pin|BMI055_Gyro_CS_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(Aux_Mem_CS_GPIO_Port, Aux_Mem_CS_Pin, GPIO_PIN_SET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(RED_LED_GPIO_Port, RED_LED_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : ICM20689_DRDY_Pin */
   GPIO_InitStruct.Pin = ICM20689_DRDY_Pin;
@@ -336,12 +333,12 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
   HAL_GPIO_Init(BMI055_Acc_CS_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : BLUE_LED_Pin */
-  GPIO_InitStruct.Pin = BLUE_LED_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_OD;
+  /*Configure GPIO pins : BLUE_LED_Pin GREEN_LED_Pin */
+  GPIO_InitStruct.Pin = BLUE_LED_Pin|GREEN_LED_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(BLUE_LED_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
   /*Configure GPIO pins : ICM20689_CS_Pin ICM20602_CS_Pin BMI055_Gyro_CS_Pin */
   GPIO_InitStruct.Pin = ICM20689_CS_Pin|ICM20602_CS_Pin|BMI055_Gyro_CS_Pin;
@@ -356,6 +353,13 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
   HAL_GPIO_Init(Aux_Mem_CS_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : RED_LED_Pin */
+  GPIO_InitStruct.Pin = RED_LED_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(RED_LED_GPIO_Port, &GPIO_InitStruct);
 
   /* EXTI interrupt init*/
   HAL_NVIC_SetPriority(EXTI4_IRQn, 1, 0);

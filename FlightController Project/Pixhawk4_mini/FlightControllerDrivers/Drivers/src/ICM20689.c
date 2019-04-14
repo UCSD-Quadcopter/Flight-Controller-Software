@@ -138,6 +138,8 @@ ICM20689* newICM20689(ICM20689* instance, SPI* spiBus, GPIO* chip_select) {
 
 
 Bool initICM20689(ICM20689* instance, uint8_t gyro_fsRange, uint8_t acc_fsRange) {
+	//spiBeginDevice(instance->CS);
+
 	instance->gyro_fsRange = gyro_fsRange;
 	instance->acc_fsRange = acc_fsRange;
 
@@ -203,6 +205,8 @@ Bool initICM20689(ICM20689* instance, uint8_t gyro_fsRange, uint8_t acc_fsRange)
 	debugString("\r[INT_EN_REG] = 0x%02hX \n", ICM_ReadReg(INT_EN_REG));
 	debugString("\r[PWR_MGMT1_REG] = 0x%02hX \n", ICM_ReadReg(PWR_MGMT1_REG));
 	debugString("\r[PWR_MGMT2_REG] = 0x%02hX \n", ICM_ReadReg(PWR_MGMT2_REG));
+
+	//spiEndDevice(instance->CS);
 
 	return Succeeded;
 }

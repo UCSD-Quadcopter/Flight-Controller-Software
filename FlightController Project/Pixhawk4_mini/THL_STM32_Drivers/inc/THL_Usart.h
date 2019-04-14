@@ -6,11 +6,12 @@
 
 #ifdef HAL_UART_MODULE_ENABLED
 
+/*
 #define USART_TxBuffer_Size 100
 #define USART_RxBuffer_Size 100
 #define USART_Default_TxTimeOut 0xFFFF  // 1 second
 #define USART_Default_RxTimeOut 0xFFFFFFFF  // 1 second
-
+*/
 
 typedef struct{
 	UART_HandleTypeDef *huart; //HAL Library Asynchronous Serial Handler's pointer 

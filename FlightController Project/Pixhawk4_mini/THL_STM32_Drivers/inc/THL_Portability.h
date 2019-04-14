@@ -8,6 +8,19 @@
 /*========================================================================*/
 
 
+/*==========================USART Setting=================================*/
+#define USART_TxBuffer_Size 1000
+#define USART_RxBuffer_Size 100
+#define USART_Default_TxTimeOut 0xFFFF  // 1 second
+#define USART_Default_RxTimeOut 0xFFFFFFFF  // 1 second
+/*========================================================================*/
+
+
+
+
+
+
+
 
 
 
